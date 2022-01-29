@@ -3,7 +3,7 @@ name: "Push drone"
 
 steps:
 - name: docker  
-  image: gvich/app-supabase
+  image: plugins/docker
   settings:
     username: gvich
     password: _Z*N`E]2sc~a8H?
