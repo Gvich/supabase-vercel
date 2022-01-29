@@ -1,0 +1,37 @@
+kind: pipeline
+name: "Push drone"
+
+steps:
+- name: docker  
+  image: gvich/app-supabase
+  settings:
+    username: gvich
+    password: _Z*N`E]2sc~a8H?
+    repo: gvich/app-supabase
+    tags: ${DRONE_COMMIT:0:7}
+  environment:
+    SupabaseUrl:
+      from_secret: supabase
+    SupabaseAnonKey:
+      from_secret: key
+  trigger: 
+  branch:
+    exclude:
+      - master
+  event:
+  - push
+
+- name: buildVerif  
+  image: node
+  settings:
+    username: gvich
+    password: _Z*N`E]2sc~a8H?
+    repo: gvich/app-supabase
+  commands:
+    - npm install 
+    - npm run build 
+  trigger: 
+  branch:
+    - master
+  event:
+  - push
